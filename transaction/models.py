@@ -1,4 +1,5 @@
 from django.db import models
+from clinic.models import Appointment
 
 
 class PaymentMethod(models.IntegerChoices):
@@ -22,7 +23,7 @@ class Transaction(models.Model):
     payment_method = models.IntegerField(choices=PaymentMethod.choices, null=True)
 
     appointment = models.OneToOneField(
-        Appointment, #type:ignore
+        Appointment,
         on_delete=models.CASCADE, related_name='transaction',
         help_text="For the payment related to this date"
     )
@@ -35,17 +36,19 @@ class Transaction(models.Model):
             help_text='Transaction number from payment gateway (webhook)'
         )
 
-    session = models.CharField(max_length=255)
+    session = models.CharField(max_length=255, null=True, blank=True)
     items = models.JSONField(default=dict)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    #def __str__(self):
-    #    return f"Payment {self.id} - {self.patient.username} - {self.status}"
+    def __str__(self):
+        return f"Payment {self.pk} - {self.appointment.patient.username} - {self.transaction_status}"
 
-    #@property
-    #def customer_name(self):
+    @property
+    def patient_name(self):
+        return self.appointment.patient.username
 
-    #@property
-    #def customer_email(self):
+    @property
+    def patient_email(self):
+        return self.appointment.patient.email

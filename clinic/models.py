@@ -1,5 +1,5 @@
 from django.db import models
-from patient.models import Pacient
+from patient.models import Patient
 
 
 class Job(models.IntegerChoices):
@@ -48,7 +48,7 @@ class Appointment(models.Model):
     date = models.DateTimeField(null=True, blank=True)
     duration_minutes = models.IntegerField(max_length=4)
     appointment_status = models.IntegerField(choices=AppointmentStatus.choices, default=AppointmentStatus.PENDING)
-    patient = models.ForeignKey(Pacient, on_delete=models.CASCADE, related_name='appointment')
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='appointment')
     department = models.ForeignKey(Department, on_delete=models.PROTECT,related_name='appointments')
     worker = models.ForeignKey(Worker, on_delete=models.SET_NULL,null=True, blank=True, related_name='appointments')
     created_at = models.DateTimeField(auto_now_add=True)
