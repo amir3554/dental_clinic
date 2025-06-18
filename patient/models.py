@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractBaseUser
 
 
 class Pacient(AbstractBaseUser):
-    bio = models.TextField(max_length=16000)
+    bio = models.TextField(max_length=1600)
     
 
 
