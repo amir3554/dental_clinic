@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<style>
+    .form-container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid rgb(141, 255, 255);
+        border-radius: 5px;
+        height: auto;
+        }
+</style>
+
+<div class="container justify-content-center form-container">
+    <div class="card-header"style="background-color: rgb(141, 255, 255);">
+        <h2 class="text-center mb-4">{% trans "Edit Profile" %}</h2>
+    </div>
+    <form method="post" action="{% url 'EditProfile' object.id %}" class="form-control"style="border: 1px solid rgb(141, 255, 255, 0.01);background-color: transparent;"
+        enctype="multipart/form-data">
+        {% csrf_token %}
+        {% include "form.html" with form=form%}
+
+        <div class="d-flex justify-content-center">
+            <div class="rounded-circle border border-2 border-dark p-1  bg-light"
+                style="width: 150px; height: 150px; overflow: hidden;">
+                {% if user.profile_image %}
+                    <div class="w-100 h-100 rounded-circle"
+                        style="background-image: url('/media/{{ user.profile_image}}');
+                        background-size: cover; background-position: center;">
+                    </div>
+                {% else %}
+                    <div class="w-100 h-100 rounded-circle"
+                        style="background-image: url('/media/OIP.jpg');
+                        background-size: cover; background-position: center;">
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <button class="btn bg-gradient btn-block center"type="submit"
+            style="background-color: rgb(141, 255, 255);">
+            {% trans "Save" %}
+        </button>
+    </form>
+</div>
+{% endblock content %}

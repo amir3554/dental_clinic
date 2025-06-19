@@ -1,0 +1,208 @@
+{% load i18n %}
+<!-- START : HEADER -->
+<style>
+    .dropbtn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 8px 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+      
+      /* Dropdown container */
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+      
+      /* Dropdown Content */
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        border-radius: 4px;
+      }
+      
+      /* Links inside the dropdown */
+      .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+      }
+      
+      /* Change color of dropdown links on hover */
+      .dropdown-content a:hover {
+        background-color: #f1f1f1;
+      }
+      
+      /* Show the dropdown menu on hover */
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+      
+      /* Change the background color of the dropdown button when the dropdown content is shown */
+      .dropdown:hover .dropbtn {
+        background-color: #3e8e41;
+      }
+
+      .tooltip {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 200px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+        padding: 5px;
+        position: absolute;
+        z-index: 1;
+        top: 125%; /* يتم تحديد موقع التلميح بالنسبة للرابط */
+        left: 50%;
+        margin-left: -100px; /* لتوسيط التلميح */
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .search-form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px; 
+        padding: 10px;
+        background-color: #ffc107; /* لون خلفية متناسق مع التصميم لديك */
+        border-radius: 5px;
+    }
+    
+    .search-input {
+        border: none;
+        border-radius: 5px;
+        padding: 8px;
+        font-size: 14px;
+        outline: none;
+    }
+    
+    .text-input {
+        flex: 3; /* لجعل صندوق البحث الأساسي أعرض */
+    }
+    
+    .date-input {
+        width: 80px; /* حجم مناسب لحقول التاريخ */
+        text-align: center;
+    }
+    
+    .search-btn {
+        background-color: #ff9800;
+        border: none;
+        color: white;
+        cursor: pointer;
+        border-radius: 5px;
+        padding: 8px 12px;
+        transition: background-color 0.3s ease;
+    }
+    
+    .search-btn:hover {
+        background-color: #e68900;
+    }
+
+    🎨
+
+</style>
+{% if user.is_authenticated %}
+<header>
+<nav class="navbar navbar-expand-md bg-gradient bg-danger navbar-dark p-2">
+
+    <a class="navbar-brand"
+       data-toggle="tooltip"
+       href="#the appointments booking url" 
+       title="{% trans "View all your appointments book and edit them." %}">
+        {% trans "Diary Management" %}
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavCollapse" aria-controls="navbarNavCollapse" aria-expanded="false">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavCollapse">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'Index' %}">{% trans 'home' %}</a>
+            </li>
+            <li class="navbar-item">
+            </li>
+        </ul>
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav  mb-2 mb-lg-0 me-3">
+            <li class="nav-item dropdown">
+                <a class="nav-link  dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ user.username }}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="{% url 'Profile' user.id %}">{% trans 'Profile' %}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'EditProfile' user.id %}">{% trans "Edit Profile" %}</a></li>
+                    <hr class="dropdown-divider">
+                    <li><form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button class="btn btn-danger"type="submit">{% trans "Logout" %}</button>
+                        </form>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        {% comment %}
+        {% if request.resolver_match.url_name == 'DiariesList' %}
+        <form method="get" class="search-form">
+            <div class="input-group">
+                <input type='text'
+                class="search-input text-input"
+                name='query' 
+                placeholder="{% trans 'Search (bio or title)' %}"
+                value="{{ request.GET.query }}">
+
+                <input type="number" min="1"name='day' max="31"
+                class="search-input date-input" 
+                placeholder="{% trans 'day' %}"
+                value="{{ request.GET.day }}">
+
+                <input type="number" name="month" min="1" max="12"
+                class="search-input date-input" 
+                placeholder="{% trans 'month' %}"
+                value="{{ request.GET.month }}">
+
+                <input type="number" name="year" min="2024"
+                class="search-input date-input" 
+                placeholder="{% trans 'year' %}"
+                value="{{ request.GET.year }}">
+
+                    <button class="btn btn-outline-light" type="submit">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </form>
+        {% endif %}
+        {% endcomment %}
+        {% else %}
+            <a class="btn btn-outline-light mx" href="{% url 'Register' %}">
+                {% trans 'Register' %}
+            </a>
+            <a class="btn btn-outline-light" href="{% url 'Login' %}">
+                {% trans 'login' %}
+            </a>
+        {% endif %}
+    </div>
+</nav>
+</header>
+{% endif %}

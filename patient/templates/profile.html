@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="d-flex">
+    <div class="d-flex justify-content-center">
+        <div class="rounded-circle"
+            style="width: 400px; height: 400px; overflow: hidden;">
+            {% if user.profile_image %}
+                <div class="w-100 h-100 rounded-circle"
+                    style="background-image: url('/media/{{ user.profile_image}}');
+                    background-size: cover; background-position: center;">
+                </div>
+            {% else %}
+                <div class="w-100 h-100 rounded-circle"
+                    style="background-image: url('/media/OIP.jpg');
+                    background-size: cover; background-position: center;">
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div>
+        <h2 class="m-4 px-10">{{ user }}</h2>
+        <p class="m-4 card-text text-muted" style="font-family:'Playwrite RO';">
+            {{ user.bio }}
+        </p>
+    </div>
+</div>
+{% endblock %}

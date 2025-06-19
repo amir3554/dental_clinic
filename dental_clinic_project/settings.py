@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 from dental_clinic_project import secret_info
 
@@ -59,7 +59,7 @@ ROOT_URLCONF = 'dental_clinic_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,10 +122,36 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR /'static',
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
+
+EMAIL_HOST = secret_info.EMAIL_HOST
+EMAIL_HOST_USER = secret_info.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = secret_info.EMAIL_HOST_PASSWORD
+EMAIL_PORT = secret_info.EMAIL_PORT
+EMAIL_TIMEOUT = 30
+EMAIL_USE_TLS = True 
+EMAIL_USE_SSL = False 
+
+STRIPE_PUBLISHABLE_KEY = secret_info.STRIPE_PUBLISHABLE_KEY
+STRIPE_SECRET_KEY = secret_info.STRIPE_SECRET_KEY
+STRIPE_ENDPOINT_SECRET = secret_info.STRIPE_ENDPOINT_SECRET
+
+PAYPAL_EMAIL = secret_info.PAYPAL_EMAIL
+PAYPAL_TEST = False
+
+CURRENCY = 'USD'
 
 
 AUTH_USER_MODEL = "patient.Patient"

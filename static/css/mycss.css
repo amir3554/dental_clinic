@@ -1,0 +1,54 @@
+body {
+    background-image: url("/media/backgrounds/main-background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    min-height: 100vh;
+    }
+
+.form-container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid rgb(141, 255, 255);
+        border-radius: 5px;
+        height: auto;
+    }
+
+
+.clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;      /* عدد السطور */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+.btn-outline-indigo {
+    color: #6366f1;
+    border-color: #6366f1;
+    }
+
+
+.btn-outline-indigo:hover {
+    color: #fff;
+    background-color: #6366f1;
+    border-color: #6366f1;
+    }
+
+.profile-image-preview {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    }
+
+.text-fam-RO{
+    font-family:'Playwrite RO';
+    }
+
+.transparent-bg {
+    background-color: transparent !important;
+    }

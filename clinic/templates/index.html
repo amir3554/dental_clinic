@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+
+<div class="container my-5">
+    <section>
+        <div class="col-md-12 mb-5">
+            <p class="h1 text-center text-secondary">
+                {% trans "Amir Dental Clinic" %}
+            </p>
+            <div class="d-flex justify-content-center">
+
+            </div>
+
+            {% include 'partials/slider.html' with slides=slides %}
+        </div>
+    </section>
+</div>
+{% comment %} <div class="d-flex justify-content-center mt-5 py-5">
+    <button class="btn btn-outline-info btn-lg">
+        <a href="{% url 'CreateDiary' %}" class="btn btn-outline-info">
+                <i class="bi bi-plus-lg "></i> {% trans 'New Diary'%}
+        </a>
+    </button>
+</div> {% endcomment %}
+
+<header class="hero-section">
+        <div class="container">
+            <h1>Welcome to Our State-of-the-Art Dental Clinic</h1>
+            <p>
+                Experience compassionate care and advanced dentistry for a healthier,
+                brighter smile.
+            </p>
+        </div>
+    </header>
+
+    <section class="content-section">
+        <div class="container">
+
+            <div class="paragraph-card">
+                <h2>The Modern Dental Experience</h2>
+                <p>
+                    Stepping into a modern dental clinic today is a far cry from the stark,
+                    intimidating spaces of yesteryear. Contemporary clinics prioritize
+                    patient comfort and a welcoming atmosphere,
+                    often featuring calming color palettes, comfortable seating,
+                    and even amenities like individual entertainment screens.
+                    This focus extends beyond aesthetics,
+                    with state-of-the-art diagnostic tools and treatment rooms designed
+                    to enhance both efficiency and patient safety.
+                    From the gentle hum of advanced cleaning instruments to the precision
+                    of laser dentistry, every element is geared towards making your visit
+                    as stress-free and effective as possible,
+                    transforming routine check-ups into a positive experience.
+                </p>
+            </div>
+
+            <div class="paragraph-card even-card">
+                <h2>Comprehensive Dental Operations</h2>
+                <p>
+                    Dental operations encompass a vast spectrum of procedures,
+                    ranging from preventative care to complex restorative and cosmetic
+                    treatments. A routine check-up often involves a thorough cleaning to
+                    remove plaque and tartar, along with a comprehensive examination
+                    for any signs of decay, gum disease, or other oral health issues.
+                    Should a cavity be detected, a simple filling operation can quickly
+                    restore the tooth's integrity. For more significant damage, crowns,
+                    bridges, or even root canal therapy might be necessary to preserve
+                    the tooth and alleviate pain, all performed with meticulous attention
+                    to detail and patient well-being.
+                </p>
+            </div>
+
+            <div class="paragraph-card">
+                <h2>Specialized Treatments & Enhancements</h2>
+                <p>Beyond the essentials, modern dental clinics offer an array of
+                    specialized operations designed to enhance both oral health and
+                    aesthetics. Orthodontic treatments, like traditional braces or clear
+                    aligners, can correct misaligned teeth, improving bite function and
+                    creating a more confident smile. For those seeking cosmetic
+                    enhancements, teeth whitening, veneers, or even gum contouring can
+                    dramatically transform appearances. These procedures are often tailored
+                    to individual needs and desires, with dentists working closely with
+                    patients to achieve their ideal smile through safe and effective
+                    interventions.
+                </p>
+            </div>
+
+            <div class="paragraph-card even-card">
+                <h2>The Journey of Your Dental Care</h2>
+                <p>The journey of a dental operation begins long before you recline in the
+                    dentist's chair. A thorough consultation allows the dental team to
+                    understand your concerns, assess your oral health, and discuss
+                    potential treatment options. Utilizing advanced imaging techniques
+                    like digital X-rays or 3D scans, dentists gain a precise view of
+                    your oral structures, enabling accurate diagnosis and detailed
+                    treatment planning. This preparatory phase is crucial, ensuring
+                    that every operation, from a simple extraction to complex implant
+                    placement, is executed with precision, safety, and a clear
+                    understanding of the desired outcome.
+                </p>
+            </div>
+
+            <div class="paragraph-card">
+                <h2>Essential Post-Operative Care</h2>
+                <p>Post-operative care is a critical component of any successful dental
+                    operation, ensuring proper healing and long-term results.
+                    After a procedure, your dental team will provide clear and concise
+                    instructions on how to care for the treated area, including dietary
+                    recommendations, oral hygiene practices, and medication guidelines
+                    if necessary. Follow-up appointments are often scheduled to monitor
+                    your recovery and address any concerns that may arise. Adhering to
+                    these post-operative instructions is vital for minimizing complications,
+                     promoting efficient healing, and maintaining the benefits of your
+                     dental treatment for years to come.
+                    </p>
+            </div>
+
+        </div>
+    </section>
+
+{% endblock content %}
