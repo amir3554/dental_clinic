@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block title %}Update Your Appointment{% endblock %}
+{% block page_css %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
+<link href="{% static 'css/date-form.css' %}" rel="stylesheet">
+<link href="{% static 'css/body-background.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+
+
+{% endblock %}
+
+{% block content %}
+
+
+<div id="alerts-container"></div>
+<div class="container">
+    <div class="row justfy-container-md-center">
+        <div class="card col-md-9 px-0">
+            <div class="card-header" style="color: #000;background-color:rgb(140, 124, 212);">
+                <h3 class="mb-0 py-2">{% trans "Chose the date and the doctor" %}</h3>
+            </div>
+            <div class="card-body" style="color: #000;background-color: #C5CAE9;">
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    {% include "common/form.html" with form=form %}
+
+
+                    {% include "common/date_form.html" %}
+
+                    {#The hidden field to which the user will send the date and time value.#}
+                    <input type="hidden" name="date" id="hidden_date">
+
+                    <button type="submit" id="submitBtn" class="btn btn-danger col-md-7 ml-5">
+                        {% trans "Update" %}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block page_js %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script defer src="{% static 'js/date_form.js' %}"></script>
+
+
+
+{% endblock %}
+
+
+{% endblock %}

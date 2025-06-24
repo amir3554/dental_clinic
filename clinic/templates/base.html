@@ -1,6 +1,5 @@
 {% load static %}
 {% load i18n %}
-{% load mood_tags %}
 
 <!DOCTYPE html>
 <html lang="en" class="h-100" dir="ltr">
@@ -8,17 +7,26 @@
     <meta charset="utf-8" />
     <meta name="csrf-token" content="{{ csrf_token }}">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{% trans 'State-of-the-Art Dental Clinic' %}</title>
+
+    <title>{% block title %}{% trans 'State-of-the-Art Dental Clinic' %}{% endblock %}</title>
+    {% block page_css %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playwrite+RO:wght@100..400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="{% static 'css/style-index.css' %}" rel="stylesheet">
     <link href="{% static 'css/101.css' %}" rel="stylesheet">
     <link href="{% static 'css/app.css' %}" rel="stylesheet">
     <link href="{% static 'css/mycss.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    {% endblock %}
+
+    {% block extra_css %}
+
+    {% endblock %}
+
 </head>
 
 <body class="d-flex flex-column h-100 bg-light">
@@ -35,22 +43,30 @@
     
     {% include "partials/footer.html" %}
 
+    {% block page_js %}
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://js.stripe.com/v3/"></script>
     <script defer src="{% static 'js/deleteDiary.js' %}"></script>
     <script defer src="{% static 'js/101.add19763.js' %}"></script>
     <script defer src="{% static 'js/app.0702f7fb.js' %}"></script>
+    <script defer src="{% static 'js/get_operation_id.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
     <script>
         // تفعيل التلميحات
         $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
+    {% endblock %}
+
+    {% block extra_js %}
     
+    {% endblock %}
+
+
     {% comment %} 
         <script>
             document.addEventListener('DOMContentLoaded', function() {

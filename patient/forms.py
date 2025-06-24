@@ -1,7 +1,7 @@
 from typing import Any, Mapping
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from models import Patient
+from .models import Patient
 
 attrs = { 'class' : 'form-control'}
 
@@ -11,7 +11,7 @@ class UserLoginForm(AuthenticationForm):
         super(UserLoginForm, self).__init__(*args, **kwargs)
 
     email = forms.EmailField(
-        label='please inter your email',
+        label='The Email',
         widget=forms.EmailInput(attrs=attrs)    
     )
     password = forms.CharField(
@@ -40,15 +40,15 @@ class UserRegisterForm(UserCreationForm):
     )
 
     email = forms.EmailField(
-        label='please inter your email',
+        label='email',
         widget=forms.EmailInput(attrs=attrs)    
     )
-    password = forms.CharField(
+    password1 = forms.CharField(
         label='Password',
         widget=forms.PasswordInput(attrs=attrs)
     )
 
-    password_conformation = forms.CharField(
+    password2 = forms.CharField(
         label='Confirm your Password',
         widget=forms.PasswordInput(attrs=attrs)
     )
@@ -62,7 +62,7 @@ class UserRegisterForm(UserCreationForm):
     class Meta:
        model = Patient
        fields = [
-            'username', 'email', 'first_name', 'last_name', 
+            'username', 'first_name', 'last_name', 'email', 
             'password1', 'password2', 'bio'
         ]
 

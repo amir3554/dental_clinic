@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class Patient(AbstractUser):
-    email = models.EmailField(unique=True)
+    email = models.EmailField('email', unique=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     bio = models.TextField(max_length=1600)

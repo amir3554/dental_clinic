@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -132,9 +133,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
 
 EMAIL_HOST = secret_info.EMAIL_HOST
 EMAIL_HOST_USER = secret_info.EMAIL_HOST_USER
@@ -144,14 +147,25 @@ EMAIL_TIMEOUT = 30
 EMAIL_USE_TLS = True 
 EMAIL_USE_SSL = False 
 
+
+
 STRIPE_PUBLISHABLE_KEY = secret_info.STRIPE_PUBLISHABLE_KEY
 STRIPE_SECRET_KEY = secret_info.STRIPE_SECRET_KEY
 STRIPE_ENDPOINT_SECRET = secret_info.STRIPE_ENDPOINT_SECRET
 
+
+
 PAYPAL_EMAIL = secret_info.PAYPAL_EMAIL
 PAYPAL_TEST = False
+
+
 
 CURRENCY = 'USD'
 
 
 AUTH_USER_MODEL = "patient.Patient"
+
+
+LOGIN_URL = 'login'  
+
+LOGIN_REDIRECT_URL = 'Index'

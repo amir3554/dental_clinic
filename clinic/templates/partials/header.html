@@ -129,9 +129,9 @@
 
     <a class="navbar-brand"
        data-toggle="tooltip"
-       href="#the appointments booking url" 
+       href="{% url "Booking" %}" 
        title="{% trans "View all your appointments book and edit them." %}">
-        {% trans "Diary Management" %}
+        {% trans "Appointments Booking" %}
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavCollapse" aria-controls="navbarNavCollapse" aria-expanded="false">
         <span class="navbar-toggler-icon"></span>
@@ -151,8 +151,12 @@
                     {{ user.username }}
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% comment %}
                     <li><a class="dropdown-item" href="{% url 'Profile' user.id %}">{% trans 'Profile' %}</a></li>
                     <li><a class="dropdown-item" href="{% url 'EditProfile' user.id %}">{% trans "Edit Profile" %}</a></li>
+                    {% endcomment %}
+                    <li><a class="dropdown-item" href="{% url 'Profile' user.id %}">{% trans 'Profile' %}</a></li>
+                    <li><a class="dropdown-item" href="{% url '' user.id %}">{% trans "Edit Profile" %}</a></li>
                     <hr class="dropdown-divider">
                     <li><form method="post" action="{% url 'logout' %}">
                             {% csrf_token %}

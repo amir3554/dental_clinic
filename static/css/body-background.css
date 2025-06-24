@@ -1,0 +1,13 @@
+body {
+    background-image: url("../media/backgrounds/dental_surgery_background.jpg"); /* Correct path for media */
+    background-size: cover; /* Cover the entire element */
+    background-repeat: no-repeat; /* Prevent repeating */
+    background-position: center center; /* Center the image */
+    background-attachment: fixed; /* Keep background fixed while scrolling (optional) */
+}
+/*    background-image: url("{{ MEDIA_URL }}backgrounds/dental_surgery_background.jpg");*/
+/* <style> */
+/* </style> */
+/* /static/css/static/media/backgrounds/dental_surgery_background.jpg (ERROR) */
+/* background-image: url("/static/media/backgrounds/dental_surgery_background.jpg");  */
+/* مسار مطلق يبدأ ب /  */

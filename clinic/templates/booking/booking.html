@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+
+
+<style>
+body {
+    background-image: url("{{ MEDIA_URL }}backgrounds/dental_surgery_background.jpg"); /* Correct path for media */
+    background-size: cover; /* Cover the entire element */
+    background-repeat: no-repeat; /* Prevent repeating */
+    background-position: center center; /* Center the image */
+    background-attachment: fixed; /* Keep background fixed while scrolling (optional) */
+}
+
+
+</style>
+
+
+
+
+<div class="row mt-5">
+    {% for operation in page_obj %}
+    <div class="col-md-3 operation-card"
+        id="operation-{{ operation.id }}"
+        style="border-radius: 8px ;"
+        data-operation-id="{{ operation.id }}">
+
+        <div class="card-mb-5">
+            <div class="card-body">
+                <p>
+                    <span class="badge rounded-pill bg-dark">
+                        {{ operation.price }}
+                    </span>
+                </p>
+                <h3 class='card-title fs-6 text-white'>
+                    {{ operation.get_dental_type_display }}
+                </h3>
+                <p class="card-text text-white clamp-2 small"
+                    style="font-family:'Playwrite RO';"
+                    id="desc-{{ operation.id }}">
+                    {{ operation.description }}
+                </p>
+                <div class="d-flex">
+                    <span class="me-auto text-white ">
+                        <i class="bi bi-clock"></i>
+                        <time datetime="{{ operation.duration_minutes }}" 
+                            style="font-family:'Playwrite RO';">
+                            {{ operation.duration_minutes}} minutes
+                        </time>
+                    </span>
+                    {% include "common/form.html" with form=form%}
+                    <a  href="{% url 'AppointmentCreate' operation.id %}"
+                        class="btn btn-sm btn-outline-info operation-card-button-add">
+                        <i class="bi bi-plus-square-dotted"></i>
+                    </a>
+                    <button onclick="toggleClamp({{ operation.id }})"
+                        id="btn-{{ operation.id }}" 
+                        class="btn btn-sm btn-outline-info">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                    {% comment %}
+                    <a href="{% url 'Updateoperation' operation.id %}" class="btn btn-sm btn-outline-dark mx-1">
+                        {% trans 'Edit' %}
+                    </a> here the button for purchesing the operation
+                    <button class="delete-btn btn btn btn-sm btn-outline-danger"
+                        data-operation-id="{{ operation.id }}">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                    {% endcomment %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% empty %}
+
+    <div class="col-md-12">
+        <div class="h-100 p-5 text-center">
+            <h2>{% trans 'There are no operations to show.' %}</h2>
+            <p><i class="bi bi-emoji-frown fs-1 lni lni-sad text-muted"></i></p>
+            <a href="{% url 'Index' %}" class="btn btn-outline-warning">
+                <i class="bi bi-arrow-left-right">
+                    {% trans 'there are no operations at the momment, back to home page or contact us.'%}
+                </i>
+            </a>
+        </div>
+    </div>
+
+    {% endfor %}
+
+    {% if page_obj.paginator.count > 0 %}
+        <div class="d-flex justify-content-center bd-highlight mb-3">
+            <nav>
+                <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                    <a class="text-danger page-link" href="?page={{ page_obj.previous_page_number }}">
+                                        {% trans 'Previous' %}
+                                    </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">{% trans 'Previous' %}</a>
+                            </li>
+                        {% endif %}
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="text-danger page-link" href="?page={{ page_obj.next_page_number }}">
+                                    {% trans 'Next' %}
+                                </a>
+                            </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                                <a class="page-link" href="#">{% trans 'Next' %}</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+    function toggleClamp(id) {
+        const desc = document.getElementById(`desc-${id}`);
+        const btn = document.getElementById(`btn-${id}`);
+      
+    if (desc.classList.contains('clamp-2')) {
+        desc.classList.remove('clamp-2');
+        btn.innerHTML = `<i class="bi bi-eye-slash"></i>`;
+    } else {
+        desc.classList.add('clamp-2');
+        btn.innerHTML = `<i class="bi bi-eye"></i>`;
+        }
+    }
+</script>
+
+
+{% endblock %}

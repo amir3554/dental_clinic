@@ -1,0 +1,55 @@
+from django.db import models
+
+class OperationAndSurgeryType(models.IntegerChoices):
+    # Preventative and Restorative
+    DENTAL_CLEANING = 1, "Dental Cleaning (Prophylaxis)"
+    DENTAL_FILLING = 2, "Dental Filling (Restoration)"
+    ROOT_CANAL = 3, "Root Canal Therapy (Endodontics)"
+
+    # Surgical
+    TOOTH_EXTRACTION = 4, "Tooth Extraction"
+    DENTAL_IMPLANT = 5, "Dental Implant Placement"
+
+    # Cosmetic/Specialized
+    TEETH_WHITENING = 6, "Teeth Whitening"
+    ORTHODONTIC_TREATMENT = 7, "Orthodontic Treatment"
+
+
+
+
+1.
+Dental Cleaning (Prophylaxis)
+
+
+2.
+Description: A routine preventative procedure to remove plaque, tartar, and surface stains from your teeth, crucial for maintaining optimal oral hygiene and preventing cavities and gum disease.
+Dental Filling (Restoration)
+
+
+3.
+Description: Used to restore a tooth damaged by decay back to its normal function and shape. The decayed portion is removed, and the space is filled with a durable material like composite resin or amalgam.
+Root Canal Therapy (Endodontics)
+
+
+4.
+Description: A procedure to treat infection or damage deep inside a tooth. The infected pulp is removed, the inner chamber is cleaned and disinfected, and then filled and sealed to save the natural tooth.
+Tooth Extraction
+
+
+5.
+Description: The removal of a tooth from its socket in the bone. This may be necessary due to severe decay, infection, overcrowding, or damage beyond repair.
+Dental Implant Placement
+
+
+6.
+Description: A surgical procedure to replace missing tooth roots with titanium screw-like posts. These implants fuse with your jawbone, providing a strong foundation for artificial teeth (crowns, bridges, or dentures).
+Teeth Whitening
+
+
+7.
+Description: A popular cosmetic procedure designed to lighten the natural color of your teeth, effectively removing stains and discoloration to achieve a brighter, more radiant smile.
+Orthodontic Treatment
+
+
+8.
+Description: Involves the use of braces, clear aligners, or other appliances to correct misaligned teeth and jaws, improving bite function, oral health, and the aesthetics of your smile.

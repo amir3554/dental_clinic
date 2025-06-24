@@ -1,15 +1,19 @@
 {% load i18n %}
-{% load mood_tags %}
 <div class="main-slider my-auto"style="background-color: transparent;">
     <div class="swiper-pagination">
     </div>
-    <div class="swiper-wrapper ">
+    <div class="swiper-wrapper">
         {% for slide in slides %}
             <div class="swiper-slide">
                 <div class="container pt-5">
                     <div class="row">
                         <div class="col-md-3 text-center d-none d-lg-block" >
-                        </div>
+                            <div class="image-wrapper-full">
+                                <img src="{{ slide.image.url }}"
+                                    alt="{{ slide.title }}" 
+                                    class="img-fluid rounded slider-image-full">
+                            </div>
+                        </div> 
                         <div class="col-md-8">
                             <div class='fs-3' >
                                 {{ slide.title }}
@@ -17,7 +21,7 @@
                             <blockquote class="blockquote mt-4">
                                 <p class="text-muted card-text text-muted small"
                                 style="font-family:'Playwrite RO';">
-                                    {{ slide.content|truncatechars:1600 }}
+                                    {{ slide.content|truncatechars:3600 }}
                                 </p>
                             </blockquote>
                         </div>

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+
+{{ object.department }}
+
+-----------------------
+
+{% include "common/form.html" with form=form %}
+
+
+{% endblock %}
