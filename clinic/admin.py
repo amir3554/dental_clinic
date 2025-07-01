@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import OperationsAndSurgeries, Department, Worker, Slider
+from .models import Operation, Department, Worker, Slider, Role
 
 
-@admin.register(OperationsAndSurgeries)
-class OperationsAndSurgeriesTypesModelAdmin(admin.ModelAdmin):
+@admin.register(Operation)
+class OperationTypesModelAdmin(admin.ModelAdmin):
     list_per_page = 20
 
 
@@ -22,3 +22,15 @@ class WorkerTypesModelAdmin(admin.ModelAdmin):
 @admin.register(Slider)
 class SliderTypesModelAdmin(admin.ModelAdmin):
     list_per_page = 20
+
+@admin.register(Role)
+class RoleTypesModelAdmin(admin.ModelAdmin):
+    list_per_page = 20
+
+    list_select_related = ( 'operation', 'worker' )
+
+    ordering = ['operation__dental_type']
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.prefetch_related('worker__department')

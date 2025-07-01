@@ -17,7 +17,7 @@ class AppointmentStatus(models.IntegerChoices):
     PENDING = 1, 'pending'
     CANCELED = 2, 'canceled'
 
-class OperationsAndSurgeriesTypes(models.IntegerChoices):
+class OperationType(models.IntegerChoices):
     # Preventative and Restorative
     DENTAL_CLEANING = 1, "Dental Cleaning (Prophylaxis)"
     DENTAL_FILLING = 2, "Dental Filling (Restoration)"
@@ -49,6 +49,8 @@ class Department(models.Model):
     address = models.CharField(max_length=255)
     added_at = models.DateField(help_text="department opening date", null=True, blank=True)
     worker = models.ManyToManyField(Worker, related_name='department')
+    email = models.EmailField(null=True, blank=True)
+    contact = models.CharField(max_length=500, help_text="phone number , fax, etc...", null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -60,12 +62,12 @@ class Department(models.Model):
 
 
 
-class OperationsAndSurgeries(models.Model):
+class Operation(models.Model):
     # this model will be filled by the admin
     # this way the user can chose the operation he wants with out manipulating anything
     dental_type = models.IntegerField(
-        choices=OperationsAndSurgeriesTypes.choices,
-        default=OperationsAndSurgeriesTypes.PERIODICAL_CHECKING,
+        choices=OperationType.choices,
+        default=OperationType.PERIODICAL_CHECKING,
     )
     description = models.TextField(max_length=5000, null=True, blank=True)
     price = models.FloatField()
@@ -74,23 +76,27 @@ class OperationsAndSurgeries(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    @property
+    def get_worker(self):
+        return self.role.worker #type:ignore
+
     def __str__(self) -> str:
         return f"{self.get_dental_type_display()}" #type:ignore
 
 
 class Appointment(models.Model):
-    operations_and_surgeries = models.ForeignKey(
-        OperationsAndSurgeries,
+    operation = models.ForeignKey(
+        Operation,
         on_delete=models.PROTECT,
-        null=True,
-        blank=True,
+        null=False,
+        blank=False,
         related_name="appointment"
     )
-    date = models.DateTimeField(null=True, blank=True)
-    appointment_status = models.IntegerField(choices=AppointmentStatus.choices, default=AppointmentStatus.PENDING)
+    date = models.DateTimeField(null=False, blank=False)
+    status = models.IntegerField(choices=AppointmentStatus.choices, default=AppointmentStatus.PENDING)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='appointment')
-    department = models.ForeignKey(Department, on_delete=models.PROTECT,related_name='appointments')
-    worker = models.ForeignKey(Worker, on_delete=models.SET_NULL,null=True, blank=True, related_name='appointments')
+    department = models.ForeignKey(Department, on_delete=models.PROTECT,related_name='appointment')
+    worker = models.ForeignKey(Worker, on_delete=models.SET_NULL,null=True, blank=True, related_name='appointment')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -99,9 +105,58 @@ class Appointment(models.Model):
         # Example to prevent the same patient from booking the same date twice
         unique_together = [['patient', 'date']]
 
-    def __str__(self):
-        return f"{self.patient.username} – {self.department.name} on {self.date:%Y-%m-%d %H:%M}" #type:ignore
+    @property
+    def get_price(self):
+        return self.operation.price
 
+    @property
+    def get_dental_type(self):
+        return self.operation.get_dental_type_display() #type:ignore
+    
+
+    @property
+    def get_patient_username(self):
+        return self.patient.username
+
+    @property
+    def get_department_name(self):
+        return self.department.name
+
+    @property
+    def get_operation_time(self):
+        return self.operation.duration_minutes
+
+    @property
+    def get_transaction_id(self):
+        return self.transaction.id #type:ignore
+
+    def __str__(self):
+        date_str = self.date.strftime('%Y-%m-%d %H:%M') if self.date else 'unscheduled'
+        return f"{self.patient.username} – {self.department.name} on {date_str} "
+
+
+
+class Role(models.Model):
+    worker = models.ForeignKey(
+        Worker,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='role'
+    )
+    operation = models.ForeignKey(
+        Operation,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='role'
+    )
+
+    def __str__(self) -> str:
+        return f'{self.operation} : {self.worker}'
+
+    class Meta:
+        unique_together = [['worker', 'operation']]
 
 
 class Slider(models.Model):

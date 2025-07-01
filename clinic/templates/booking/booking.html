@@ -1,36 +1,40 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load static %}
+{% load currency %}
 {% block content %}
 
 
-<style>
-body {
-    background-image: url("{{ MEDIA_URL }}backgrounds/dental_surgery_background.jpg"); /* Correct path for media */
-    background-size: cover; /* Cover the entire element */
-    background-repeat: no-repeat; /* Prevent repeating */
-    background-position: center center; /* Center the image */
-    background-attachment: fixed; /* Keep background fixed while scrolling (optional) */
-}
+{% block extra_css %}
 
+<link href="{% static 'css/dental_clinic_css/body-background.css' %}" rel="stylesheet">
 
-</style>
-
+{% endblock %}
 
 
 
 <div class="row mt-5">
     {% for operation in page_obj %}
+
+
+    <br>
     <div class="col-md-3 operation-card"
         id="operation-{{ operation.id }}"
-        style="border-radius: 8px ;"
+        style="border-radius: 8px; border:solid,3px, rgb(140, 124, 212);"
         data-operation-id="{{ operation.id }}">
 
         <div class="card-mb-5">
             <div class="card-body">
+                <div class=""
+                    style="width: 200px; height: 200px; overflow: hidden;">
+                    <div class="w-100 h-100 "
+                        style="background-image: url('{{ MEDIA_URL }}{{ operation.image }}');
+                        background-size: cover; background-position: center;">
+                    </div>
+                </div>
                 <p>
                     <span class="badge rounded-pill bg-dark">
-                        {{ operation.price }}
+                        {{ operation.price|currency }}
                     </span>
                 </p>
                 <h3 class='card-title fs-6 text-white'>
@@ -95,7 +99,9 @@ body {
                 <ul class="pagination">
                         {% if page_obj.has_previous %}
                             <li class="page-item">
-                                    <a class="text-danger page-link" href="?page={{ page_obj.previous_page_number }}">
+                                    <a class=" page-link"
+                                        href="?page={{ page_obj.previous_page_number }}"
+                                        style="color: rgb(140, 124, 212);">
                                         {% trans 'Previous' %}
                                     </a>
                             </li>
@@ -106,7 +112,9 @@ body {
                         {% endif %}
                         {% if page_obj.has_next %}
                             <li class="page-item">
-                                <a class="text-danger page-link" href="?page={{ page_obj.next_page_number }}">
+                                <a class="page-link"
+                                    href="?page={{ page_obj.next_page_number }}"
+                                    style="color: rgb(140, 124, 212);">
                                     {% trans 'Next' %}
                                 </a>
                             </li>

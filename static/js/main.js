@@ -15,6 +15,13 @@ async function cart_remove_funcjs(e) {
     location.reload()
 }
 
+function getCsrfToken() {
+  return document
+    .querySelector('meta[name="csrf-token"]')
+    .getAttribute('content');
+}
+
+
 function switchPaymentMethod(type, content) {
     const stripeCard = document.getElementById('stripe-card');
     const stripePaymentElement = document.getElementById('payment-element');
@@ -35,13 +42,24 @@ function switchPaymentMethod(type, content) {
 
 async function createPaypalSession() {
 
+    const headers = {
+        'Content-Type' : 'application/json',
+        'X-CSRFToken' : getCsrfToken(),
+    }
+
     try {
-       const form = document.getElementById( 'form-user-info');
-       const formData = new FormData(form);
-       const { data } = await axios.post("/oprations/paypal", formData);
-       switchPaymentMethod('paypal', data)
+
+        const appointmentElement = document.getElementById('appointment-id');
+        const appointmentId = appointmentElement.getAttribute('data-appointment-id');
+
+        const { data } = await axios.post(
+            `/transaction/paypal/${appointmentId}/`,
+            {}, // empty request body
+            { headers }
+        );
+        switchPaymentMethod('paypal', data)
    } catch (e) {
-       notyf.error(e?.response?.data?.message ||
+        notyf.error(e?.response?.data?.message ||
         "An error occurred while creating a stripe session.");
    }
 }

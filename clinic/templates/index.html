@@ -1,6 +1,116 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load static %}
 {% block content %}
+
+{% block extra_css %}
+    
+<style>
+
+body{
+    color:rgb(140, 124, 212);;
+}
+
+
+.hero-section {
+    background-color:rgb(140, 124, 212); /* Primary blue */
+    color: #fff;
+    padding: 80px 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.hero-section h1 {
+    font-size: 2.8em;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.hero-section p {
+    font-size: 1.2em;
+    font-weight: 300;
+}
+
+/* Content Section - Spacing */
+.content-section {
+    padding: 40px 0;
+}
+
+/* Paragraph Card Styling */
+.paragraph-card {
+    background-color: #ffffff; /* White background for cards */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+    margin-bottom: 30px; /* Space between cards */
+    padding: 30px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.paragraph-card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* More pronounced shadow on hover */
+}
+
+.paragraph-card h2 {
+    color: rgb(140, 124, 212); /* Darker blue for headings */
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e9ecef; /* Subtle separator */
+    padding-bottom: 10px;
+}
+
+.paragraph-card p {
+    font-size: 1.1em;
+    line-height: 1.7;
+    margin-bottom: 0; /* Remove default paragraph bottom margin */
+}
+
+/* Alternating background for even cards */
+.paragraph-card.even-card {
+    background-color: #e9f7ff; /* Lighter blue for alternating cards */
+}
+
+/* Footer Styling */
+footer {
+    background-color: #343a40; /* Dark gray footer */
+    color: #f8f9fa; /* Light text */
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+    font-size: 0.9em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2em;
+    }
+
+    .hero-section p {
+        font-size: 1em;
+    }
+
+    .paragraph-card {
+        padding: 20px;
+    }
+
+    .paragraph-card h2 {
+        font-size: 1.5em;
+    }
+
+    .paragraph-card p {
+        font-size: 1em;
+    }
+}
+
+
+</style>
+
+{% endblock %}
+
 
 <div class="container my-5">
     <section>
@@ -25,7 +135,7 @@
 </div> {% endcomment %}
 
 <header class="hero-section">
-        <div class="container">
+        <div class="container ">
             <h1>Welcome to Our State-of-the-Art Dental Clinic</h1>
             <p>
                 Experience compassionate care and advanced dentistry for a healthier,

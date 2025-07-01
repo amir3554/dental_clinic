@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block title %}Update Appointment{% endblock %}
+
+{% block extra_css %}
+
+<link href="{% static 'css/dental_clinic_css/body-background.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+
+
+<div id="alerts-container"></div>
+<div class="container"style="margin-top:20px;margin-left:150px;">
+    <div class="row justfy-container-md-center">
+        <div class="card col-md-9 px-0">
+            <div class="card-header" style="color: #000;background-color:rgb(140, 124, 212);">
+                <h3 class="mb-0 py-2">{% trans "Chose the date and the doctor" %}</h3>
+            </div>
+            <div class="card-body" style="color: #000;background-color: #C5CAE9;">
+                Current appointment info:
+                <br>
+                {{ appointment }}
+                <br>
+                {{ appointment.worker }}
+                <br>
+                {{ appointment.department }}
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    {% include "common/form.html" with form=form %}
+
+                    <button type="submit" id="submitBtn" class="btn btn-danger col-md-7 ml-5">
+                        {% trans "Update" %}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

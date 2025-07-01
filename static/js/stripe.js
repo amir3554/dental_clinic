@@ -1,16 +1,49 @@
 let stripe, elements;
 const stripeSubmit = document.getElementById('stripe-submit');
 
+
+ // دالة بسيطة لجلب قيمة الـ CSRF من الكوكيز
+function getCookie(name) {
+let cookieValue = null;
+if (document.cookie && document.cookie !== '') {
+    document.cookie.split(';').forEach(cookie => {
+    let [key, val] = cookie.trim().split('=');
+    if (key === name) cookieValue = decodeURIComponent(val);
+    });
+}
+return cookieValue;
+}
+
+function getCsrfToken() {
+  return document
+    .querySelector('meta[name="csrf-token"]')
+    .getAttribute('content');
+}
+
+
+
+
+
 async function createStripeSession() {
 
-    const form = document.getElementById('form-user-info');
-    const formData = new FormData(form);
+        const appointmentElement = document.getElementById('appointment-id');
+        const appointmentId = appointmentElement.getAttribute('data-appointment-id');
 
     switchPaymentMethod('srtipe', '')
 
     stripeSubmit.disabled = true;
+
+    const headers = {
+        'Content-Type' : 'application/json',
+        'X-CSRFToken' : getCsrfToken()
+    }
+
     try {
-        const { data } = await axios.post("/oprations/stripe/", formData)
+        const { data } = await axios.post(
+            `/transaction/stripe/${appointmentId}`,
+            {} ,// the body of the request (empty object if there are no date)
+            { headers } // here comes the config that has the header
+        );
         const { client_secret } = data;
 
         const appearance = { theme: 'flat' };
@@ -27,9 +60,9 @@ async function createStripeSession() {
         console.log("paymentElement", paymentElement);
           
     } catch (e) {
-        notyf.error(e?.response?.data?.message ||
-             "An error occurred while creating a stripe session.");
-    }
+        notyf.error(e?.response?.data?.message
+            || "An error occurred while creating a stripe session." );
+    } 
 }
 
 async function _stripeFormSubmit(e) {
@@ -39,7 +72,7 @@ async function _stripeFormSubmit(e) {
     const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-            return_url: `${host}/oprations/complete`,
+            return_url: `${host}/transaction/check-out-complete`,
         },
     });
 
@@ -73,8 +106,8 @@ async function _checkStripePaymentStatus() {
 }
 
 async function _stripeInit() {
-        const { data } = await axios("/oprations/stripe/config/");
-        stripe = Stripe(data.public_key, { locale: 'ar' });
+        const { data } = await axios("/transaction/stripe/config/publishable-key/");
+        stripe = Stripe(data.publishable_key, { locale: 'ar' });
         _checkStripePaymentStatus();
 }
 

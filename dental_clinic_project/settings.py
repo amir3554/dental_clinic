@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'notification',
     'patient',
     'transaction',
+    'paypal',
+
 ]
 
 MIDDLEWARE = [
@@ -68,6 +70,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
+                'django.template.context_processors.static',
             ],
         },
     },
@@ -142,6 +145,7 @@ MEDIA_URL = '/media/'
 EMAIL_HOST = secret_info.EMAIL_HOST
 EMAIL_HOST_USER = secret_info.EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = secret_info.EMAIL_HOST_PASSWORD
+EMAIL_SENDER = secret_info.EMAIL_SENDER
 EMAIL_PORT = secret_info.EMAIL_PORT
 EMAIL_TIMEOUT = 30
 EMAIL_USE_TLS = True 
@@ -168,4 +172,18 @@ AUTH_USER_MODEL = "patient.Patient"
 
 LOGIN_URL = 'login'  
 
+LOGOUT_REDIRECT_URL = '/clinic/home/'
+
 LOGIN_REDIRECT_URL = 'Index'
+
+INSTALLED_APPS += ['django_crontab']
+
+CRONJOBS = [
+    ('*/1 * * * *', 'notification.cron.send_due_notifications'),
+]
+
+beat_schedule = {
+
+}
+
+

@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../static/css/bootstrap.rtl.min.css" />
+        <!-- CSS Style -->
+        <link rel="stylesheet" href="../../static/css/base_style.css" />
+        <!-- Google Fonts -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <title>Wrong Method</title>
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <!-- Navbar    -->
+        <div class="container-fluid mb-4 nav-bg">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-dark">
+                    <a class="navbar-brand" href="#">مدونة حسوب</a>
+                    <button type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" class="navbar-toggler" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                        <div>
+                            <ul class="navbar-nav mr-auto d-flex align-items-center">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">المقالات</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> لوحة التحكم </a>
+                                    <ul class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
+                                        <li>
+                                            <a class="dropdown-item" href="#">الاشتراكات</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">المستخدمين</a>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider" />
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">إضافة مقالة</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">لائحة المقالات</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <ul class="navbar-nav mr-auto d-flex align-items-center">
+                            <li class="nav-item mr-auto">
+                                <a class="nav-link" href="#">تسجيل الدخول</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">حساب جديد</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div> {% endcomment %}
+        <!-- main container -->
+        <div class="container-fluid">
+            <div class="d-flex align-items-center justify-content-center">
+                <div class="text-center">
+                    <h1 class="display-1 fw-bold">{{ error_code }}</h1>
+                    <p class="fs-3"><span class="text-danger">uh oh!</span>Method Not Allowed</p>
+                    <a href="{{ url_for('MainRoute.home') }}" class="btn mainButton">عد للصفحة الرئيسية</a>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        {% comment %} <footer class="nav-bg mt-auto py-0.2">
+            <div class="container text-center">
+                <span class="text text-light fs-6 text">© 2022 حسوب. جميع الحقوق محفوظة.</span>
+            </div>
+        </footer>
+        <!-- Bootstrap Bundle with Popper -->
+        <script src="../../static/js/bootstrap.bundle.min.js"></script>
+        <!-- fontawesome icon -->
+        <script src="https://kit.fontawesome.com/fd1352f6d1.js" crossorigin="anonymous"></script>
+    </body>
+</html> {% endcomment %}
+{% endblock %}

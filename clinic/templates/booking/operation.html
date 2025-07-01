@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+
+Operation Details
+
+{% endblock title %}
+
+{% block content %}
+
+<div class="d-flex">
+    <div class="d-flex justify-content-center">
+        <div class="rounded-circle"
+            style="width: 400px; height: 400px; overflow: hidden;">
+
+            {% if user.profile_image %}
+
+            <div class="w-100 h-100 rounded-circle"
+                style="background-image: url('{{ MEDIA_URL }}{{ operation.image }}');
+                background-size: cover; background-position: center;">
+            </div>
+
+            {% else %}
+
+            <div class="w-100 h-100 rounded-circle"
+                style="background-image: url('{{ MEDIA_URL }}backgrounds/dental_surgery_background.jpg');
+                background-size: cover; background-position: center;">
+            </div>
+
+            {% endif %}
+
+        </div>
+    </div>
+    <div>
+        <h2 class="m-4 px-10">{{ operation }}</h2>
+        <p class="m-4 card-text text-muted" style="font-family:'Playwrite RO';">
+            {{ operation.description }}
+        </p>
+    </div>
+</div>
+<img class="img-responsive img-rounded img-appointment"
+    src=""
+    alt=""/>
+
+<p class="text text-small text-muted">
+    We are working on new css and sass styles ,
+    we will update this page as soon as posible.
+</p>
+
+
+{% endblock %}

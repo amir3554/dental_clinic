@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block extra_css %}
+
+
+<style>
+body {
+        background-image: url("{{ STATIC_URL }}media/backgrounds/surgery_bg_2.jpg"); /* Correct path for media */
+        background-size: cover; /* Cover the entire element */
+        background-repeat: no-repeat; /* Prevent repeating */
+        background-position: center center; /* Center the image */
+        background-attachment: fixed; /* Keep background fixed while scrolling (optional) */
+}
+.list-group-item-main-color {background-color: rgba(115, 87, 225, 0.7); border:0;}
+.list-group {box-shadow: 0px 11px 23px 5px rgba(0,0,0,0.34);} 
+.img-appointment {
+    float:left; 
+    margin-right:15px;
+    height: 128px;
+    width: 128px;
+} 
+.img-rounded {border-radius: 6px;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <ul class="list-group">
+
+        {% for appointment in appointments %}
+
+        <li class="list-group-item-main-color clearfix mt-3">
+
+            <img class="img-responsive img-rounded img-appointment"
+                src="{{ MEDIA_URL }}{{ appointment.operation.image }}"
+                alt=""/>
+
+            <h3 class="list-group-item-heading">
+                {{ appointment }}
+                <span class="pull-right btn bg bg-white" style="font-size:small;">                    
+                        {{ appointment.date }}
+                    </span>
+            </h3>
+            <p class="list-group-item-text lead">
+                {{ appointment.operation.description|truncatechars:1000 }}
+                <br />
+                
+                <a href="{% url 'OperationDetail' appointment.operation.id %}"
+                    class="text text-white">
+                    <small >
+                        go to operations_and_surgeries Details page
+                    </small>
+                </a>
+            </p>
+            <div class="btn-toolbar pull-right" role="toolbar" aria-label="">
+                <div class="btn-group">
+                    {% comment %} <button type="button" class="btn btn-default dropdown-toggle"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-fw fa-list"></i>
+                        <span class="caret"></span>
+                    </button> {% endcomment %}
+
+                    <ul class="navbar-nav    mb-2 mb-lg-0 me-3">
+                        <li class="nav-item dropdown">
+                                <a class="nav-link    dropdown-toggle"
+                                    href="#"
+                                    id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false"
+                                    style="color:rgb(140, 124, 212);">
+                                    <i class="bi bi-grid-3x3-gap"></i>
+                                     
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        
+                                        <li>
+                                            <a class="dropdown-item"
+                                                href="{% url 'AppointmentDetail' appointment.id %}">
+                                                {% trans "View Appointment Details" %}
+                                            </a>
+                                        </li>
+                                        
+                                        <li>
+                                                <a class="dropdown-item"
+                                                    href="{% url 'OperationDetail' appointment.operation.id %}">
+                                                    {% trans "View Operation Details" %}
+                                                </a>
+                                        </li>
+                                        
+                                        <hr class="dropdown-divider">
+                                        <li>
+                                        <li>
+                                            <a class="btn btn-danger"
+                                                href="{% url 'AppointmentUpdate' appointment.id %}">
+                                                {% trans "Update Appointment" %}
+                                            </a>
+                                        </li>
+                                        </li>
+                                </ul>
+                        </li>
+                </ul>
+
+
+
+
+                    {% comment %} <ul class="dropdown-menu">
+                        <li><a href="#">Add to new list</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">A list</a></li>
+                        <li><a href="#">Another list</a></li>
+                        <li><a href="#">Third list</a></li>
+                    </ul> {% endcomment %}
+                </div>
+                <a href="{% url 'CheckOut' appointment.id %}" class="btn btn-default">
+                    Confirm The Appointment
+                </a>
+                <a href="{% url 'CheckOut' appointment.id %}" class="btn"
+                    style="background-color:rgb(140, 124, 212);">
+                    {{ appointment.operation.price }}
+                </a>
+            </div>
+        </li>
+        
+        {% endfor %}
+
+
+
+{% endblock %}

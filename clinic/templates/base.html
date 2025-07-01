@@ -16,11 +16,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Playwrite+RO:wght@100..400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link href="{% static 'css/style-index.css' %}" rel="stylesheet">
-    <link href="{% static 'css/101.css' %}" rel="stylesheet">
-    <link href="{% static 'css/app.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main_css/101.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main_css/app.css' %}" rel="stylesheet">
     <link href="{% static 'css/mycss.css' %}" rel="stylesheet">
-    
+    <link href="{% static 'src/styles/main.scss' %}" rel="stylesheet">
     {% endblock %}
 
     {% block extra_css %}
@@ -45,15 +44,15 @@
 
     {% block page_js %}
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script defer src="{% static 'js/deleteDiary.js' %}"></script>
     <script defer src="{% static 'js/101.add19763.js' %}"></script>
     <script defer src="{% static 'js/app.0702f7fb.js' %}"></script>
     <script defer src="{% static 'js/get_operation_id.js' %}"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         // تفعيل التلميحات
         $(document).ready(function() {

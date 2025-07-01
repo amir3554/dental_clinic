@@ -1,0 +1,51 @@
+body {
+    background-image: url("../../media/backgrounds/surgery_bg_2.jpg"); /* Correct path for media */
+    background-size: cover; /* Cover the entire element */
+    background-repeat: no-repeat; /* Prevent repeating */
+    background-position: center center; /* Center the image */
+    background-attachment: fixed; /* Keep background fixed while scrolling (optional) */
+}
+
+/* .list-group {box-shadow: 0px 11px 23px 5px rgba(0,0,0,0.34);} */
+
+/* .list-group-item {background-color: rgba(115, 87, 225, 0.7); border:0;} */
+
+/* .btn-toolbar {margin-top:10px;} */
+
+/* img {
+  float:left; 
+  margin-right:15px;
+  height: 128px;
+  width: 128px;
+} */
+
+
+
+
+
+
+/* ==== SOME BOOTSTRAP MODS/STYLING ==== */
+/* .btn-default {background-color: rgba(255,255,255,0.3); border-color:rgba(0,0,0,0.2);}
+.img-rounded, .btn, .label {border-radius: 6px;}
+.btn {padding: 6px 18px;}
+.dropdown-menu>li>a {color:#777;}
+.dropdown-menu {
+  background-color:rgba(0,0,0,0.8);
+  .divider {background-color: #555;}
+} */
+
+
+  
+
+
+
+
+
+
+
+/* ==== FONTS ==== */
+/* @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300);
+h1,h2,h3,h4,h5,h6 {font-family: 'Montserrat', sans-serif; text-transform:uppercase; font-weight:700;}
+html, body {font-family: 'Open Sans', sans-serif; -webkit-font-smoothing: antialiased !important;}
+.active a {color:#c7ddef;} */

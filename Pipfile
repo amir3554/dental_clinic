@@ -4,8 +4,19 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+asgiref = "==3.8.1"
+certifi = "==2025.6.15"
+charset-normalizer = "==3.4.2"
 django = "==5.2.1"
-stripe = "*"
+idna = "==3.10"
+paypal = "==1.2.5"
+pillow = "==11.2.1"
+requests = "==2.32.4"
+sqlparse = "==0.5.3"
+stripe = "==12.2.0"
+typing-extensions = "==4.14.0"
+tzdata = "==2025.2"
+urllib3 = "==2.4.0"
 
 [dev-packages]
 

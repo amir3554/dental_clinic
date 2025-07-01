@@ -123,9 +123,10 @@
     🎨
 
 </style>
-{% if user.is_authenticated %}
+
 <header>
-<nav class="navbar navbar-expand-md bg-gradient bg-danger navbar-dark p-2">
+<nav class="navbar navbar-expand-md bg-gradient navbar-dark p-2"
+    style="background-color: rgb(140, 124, 212);">
 
     <a class="navbar-brand"
        data-toggle="tooltip"
@@ -155,8 +156,12 @@
                     <li><a class="dropdown-item" href="{% url 'Profile' user.id %}">{% trans 'Profile' %}</a></li>
                     <li><a class="dropdown-item" href="{% url 'EditProfile' user.id %}">{% trans "Edit Profile" %}</a></li>
                     {% endcomment %}
-                    <li><a class="dropdown-item" href="{% url 'Profile' user.id %}">{% trans 'Profile' %}</a></li>
-                    <li><a class="dropdown-item" href="{% url '' user.id %}">{% trans "Edit Profile" %}</a></li>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'AppointmentsList' %}">
+                            {% trans "My Appointments" %}
+                        </a>
+                    </li>
+                    
                     <hr class="dropdown-divider">
                     <li><form method="post" action="{% url 'logout' %}">
                             {% csrf_token %}
@@ -202,11 +207,10 @@
             <a class="btn btn-outline-light mx" href="{% url 'Register' %}">
                 {% trans 'Register' %}
             </a>
-            <a class="btn btn-outline-light" href="{% url 'Login' %}">
+            <a class="btn btn-outline-light" href="{% url 'login' %}">
                 {% trans 'login' %}
             </a>
         {% endif %}
     </div>
 </nav>
 </header>
-{% endif %}

@@ -1,18 +1,12 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load static %}
-{% block title %}Update Your Appointment{% endblock %}
-{% block page_css %}
+{% load currency %}
+{% block title %}Appointment Details{% endblock %}
+{% block extra_css %}
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
-<link href="{% static 'css/date-form.css' %}" rel="stylesheet">
-<link href="{% static 'css/body-background.css' %}" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<link href="{% static 'css/dental_clinic_css/body-background.css' %}" rel="stylesheet">
 
 
 
@@ -22,27 +16,51 @@
 
 
 <div id="alerts-container"></div>
-<div class="container">
+<div class="container" style="margin-top:20px;margin-left:150px;">
     <div class="row justfy-container-md-center">
         <div class="card col-md-9 px-0">
             <div class="card-header" style="color: #000;background-color:rgb(140, 124, 212);">
-                <h3 class="mb-0 py-2">{% trans "Chose the date and the doctor" %}</h3>
+                <h3 class="mb-0 py-2">{% trans "Your Appointment Details" %}</h3>
             </div>
             <div class="card-body" style="color: #000;background-color: #C5CAE9;">
-                <form method="POST">
 
+                {{ appointment }}
+                <br>
+                {{ appointment.worker }}
+                <br>
+                {{ appointment.get_department_name }}
+                <br>
+                {{ appointment.department.address }}
+                <br>
+                {{ appointment.get_appointment_status_display }}
+                <br>
+                {{ appointment.get_dental_type }}
+                <br>
+                {{ appointment.operation.description }}
+                <br>
+                {{ appointment.get_price|currency }}
+                <br>
+                {{ appointment.get_operation_time }}
+                <br>
+                <p class="text-danger">We are working on new css and sass styles , we will update this page as soon as posible.</p>
+                
+                
+                <a href="{% url 'AppointmentUpdate' appointment.id %}"
+                    class="btn col-md-7 ml-5 mt-3 md-3"
+                    style="color: #000;background-color:rgb(140, 124, 212);">
+                    {% trans "Click To Update The Appointment" %}
+                </a>
+
+                <a href="{% url 'CheckOut' appointment.id %}"
+                    class="btn col-md-7 ml-5 mt-3"
+                    style="color: #000;background-color:rgb(140, 124, 212);">
+                    {% trans "Confirm Appointment" %}
+                </a>
+                
+                <form method="POST" action="{% url 'AppointmentDelete' appointment.id %}">
                     {% csrf_token %}
-
-                    {% include "common/form.html" with form=form %}
-
-
-                    {% include "common/date_form.html" %}
-
-                    {#The hidden field to which the user will send the date and time value.#}
-                    <input type="hidden" name="date" id="hidden_date">
-
-                    <button type="submit" id="submitBtn" class="btn btn-danger col-md-7 ml-5">
-                        {% trans "Update" %}
+                    <button class="btn btn-danger col-md-7 ml-5 mt-5">
+                        {% trans "Delete Appointment" %}
                     </button>
                 </form>
             </div>
@@ -50,7 +68,7 @@
     </div>
 </div>
 
-{% block page_js %}
+{% block extra_js %}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script defer src="{% static 'js/date_form.js' %}"></script>

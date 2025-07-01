@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+Appointment Confirmed
+{% endblock %}
+
+{% block extra_css %}
+<style>
+main{
+    background-color:rgb(140, 124, 212);
+}
+</style>
+{% endblock extra_css %}
+
+{% block content %}
+
+<div class="bg-white py-4">
+        <h1 class="text-center text-secondary">
+            {% trans "Your Appointment has been Confirmed." %}
+        </h1>
+    </div>
+    <div class="container my-5">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="text-center">
+                    <i class="lni lni-checkmark-circle text-muted display-1"></i>
+                </h1>
+                <p class="text-center mt-4">
+                    {% trans "The transaction has been successful, you will receive an email with the transaction and appointment details"%}
+                </p>
+                <p class="text-center">
+                    <a href="{% url "Index" %}" class="btn"
+                        style="background-color:rgb(140, 124, 212);">
+                        {% trans "Back To Main Page." %}
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}

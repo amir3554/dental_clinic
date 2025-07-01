@@ -1,5 +1,5 @@
 body {
-    background-image: url("../media/backgrounds/dental_surgery_background.jpg"); /* Correct path for media */
+    background-image: url("../../media/backgrounds/dental_surgery_background.jpg"); /* Correct path for media */
     background-size: cover; /* Cover the entire element */
     background-repeat: no-repeat; /* Prevent repeating */
     background-position: center center; /* Center the image */

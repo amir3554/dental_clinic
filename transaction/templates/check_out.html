@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% load currency %}
+
+{% block title %}Check Out page{% endblock title %}
+
+{% block extra_css %}
+
+<style>
+
+main{
+    background-color:rgb(140, 124, 212);
+}
+
+</style>
+
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row bd-highlight">
+        <div class="col-md-12">
+            <h4 class="my-3 text-center">
+                <div id="appointment-id"
+                    class="alert py-3"
+                    style="background-color: rgba(160, 144, 232);"
+                    data-appointment-id="{{ appointment.id }}"
+                >
+                    <h3 class="text-center">{% trans 'Price' %}</h3>
+                    <h3 class="text-center">{{ appointment.get_price|currency }}</h3>
+                    <h3 class="text-center">{% trans 'Details' %}</h3>
+                    <p class=" text-center text-muted small">
+                        {{ appointment }}
+                        <br>
+                        {{ appointment.get_dental_type }}
+                        <br>
+                        {{ appointment.get_department_name }}
+                        <br>
+                        {{ appointment.worker }}
+                    </p>
+                </div>
+            </h4>
+        </div>
+        <div class="col-12">
+            <p class="text text-muted small">
+                We are working on new css and sass styles,
+                we will update this page as soon as posible!
+            </p>
+            <h4 class="my-3">{% trans "Your Info" %}</h4>
+            <div class="card" style="background-color: rgba(160, 144, 232);">
+                <div class="card-body">
+                    {{ user.username }}
+                    <br>
+                    {{ user.first_name }}
+                    <br>
+                    {{ user.last_name }}
+                    <br>
+                    {{ user.email }}
+                </div>
+            </div>
+            <h4 class="my-3">{% trans "Payment method" %}</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="pm-paypal" class="card" role="button" onclick="createPaypalSession()">
+                        <div class="card-body text-center">
+                            <p>{% trans "paypal" %}</p>
+                            <i class="lni lni-paypal-original fs-1"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card" role="button" onclick="createStripeSession()">
+                        <div class="card-body text-center">
+                            <p>{% trans "credit card" %}</p>
+                            <i class="lni lni-credit-cards fs-1"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div id="payment-form-container">
+                        <div id="stripe-card" class="card my-3 p-3" style="display: none">
+                            <form id="payment-form">
+                                <div id="payment-element">
+                                </div>
+                                <button id="stripe-submit" class="btn mt-3"
+                                    style="color: #000;background-color:rgb(140, 124, 212);">
+                                    {% trans 'Pay Now' %}
+                                </button>
+                            </form>
+                        </div>
+                        <div id="paypal-card" class="card my-3 p-3" style="display: none">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+
+<script defer src="{% static 'js/main.js' %}"></script>
+<script defer src="{% static 'js/stripe.js' %}"></script>
+
+{% endblock extra_js %}
+
+{% endblock content %}

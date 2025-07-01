@@ -1,4 +1,4 @@
-/* Container for consistent width and centering */
+/* Container for consistent width and centering 
 .container {
     max-width: 1100px;
     margin: 0 auto;
@@ -7,7 +7,7 @@
 
 /* Hero Section Styling */
 .hero-section {
-    background-color: #007bff; /* Primary blue */
+    background-color:rgb(140, 124, 212); /* Primary blue */
     color: #fff;
     padding: 80px 20px;
     text-align: center;
@@ -46,7 +46,7 @@
 }
 
 .paragraph-card h2 {
-    color: #0056b3; /* Darker blue for headings */
+    color: rgb(140, 124, 212); /* Darker blue for headings */
     font-size: 1.8em;
     margin-top: 0;
     margin-bottom: 15px;

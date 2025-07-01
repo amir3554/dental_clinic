@@ -10,10 +10,11 @@ class UserLoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super(UserLoginForm, self).__init__(*args, **kwargs)
 
-    email = forms.EmailField(
-        label='The Email',
-        widget=forms.EmailInput(attrs=attrs)    
+    username = forms.EmailField(
+        label='Email',
+        widget=forms.EmailInput(attrs=attrs)
     )
+
     password = forms.CharField(
         label='Password',
         widget=forms.PasswordInput(attrs=attrs)
