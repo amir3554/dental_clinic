@@ -176,11 +176,11 @@ LOGOUT_REDIRECT_URL = '/clinic/home/'
 
 LOGIN_REDIRECT_URL = 'Index'
 
-INSTALLED_APPS += ['django_crontab']
+#INSTALLED_APPS += ['django_crontab']
 
-CRONJOBS = [
-    ('*/1 * * * *', 'notification.cron.send_due_notifications'),
-]
+#CRONJOBS = [
+#    ('*/1 * * * *', 'notification.cron.send_due_notifications'),
+#]
 
 beat_schedule = {
 

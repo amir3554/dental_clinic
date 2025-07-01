@@ -72,6 +72,19 @@ class OperationDetailView(DetailView):
     template_name = 'booking/operation.html'
     context_object_name = 'operation'
 
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context =  super().get_context_data(**kwargs)
+        workers = Worker.objects.filter(role__operation=self.object).prefetch_related(     #type:ignore
+            Prefetch(
+                'role',
+                queryset=Role.objects.filter(operation=self.object), #type:ignore
+                to_attr='filtered_roles'  
+                )
+            ).prefetch_related('department')
+        context['workers'] = workers
+        return context
+    
+
 
 
 @login_required
@@ -79,67 +92,42 @@ class OperationDetailView(DetailView):
 def appointment_create(request, oid : int) -> HttpResponse:
 
     patient = Patient.objects.get(pk=request.user.id)
-
     operation = get_object_or_404(Operation, id=oid)
-
-    workers = Worker.objects.filter(
-        role__operation=operation.pk
-        ).prefetch_related(
-            Prefetch(
-                'role',
-                queryset=Role.objects.select_related('operation')
-                )
-            )
-    
-    departments = Department.objects.filter(worker__in=workers).prefetch_related('worker')
+    workers = Worker.objects.filter(role__operation=operation.pk)
+    departments = Department.objects.filter(worker__in=workers).distinct()
 
     if request.method == "POST":
-        form = AppointmentModelForm(request.POST)
+        form = AppointmentModelForm(request.POST,allowed_workers=workers, allowed_departments=departments)
         if form.is_valid():    
-
             try:
                 date_str = request.POST.get('date')
                 date_str_format = datetime.strptime(date_str, "%d-%m-%Y %I:%M%p")
-            except Exception as e:
-                    return render(
-                    request,
-                    'booking/create.html',
-                    {
-                        'form' : form,
-                        'date_error' : 'DateTime picker error make sure you have chosen the date before the time'\
-                    },status=400
-                    )
+            except:
+                return render(request, 'booking/create.html',{'form': form,'date_error' : 'DateTime picker error try again.'})
+            
+            worker = form.cleaned_data.get('worker') or random.choice(workers)
+            department = form.cleaned_data.get('department')
+
+            if worker not in workers:
+                form.add_error('worker', 'This agent is not authorized to perform the operation.')
+            elif department not in departments:
+                form.add_error('department', 'wrong department')
+
+            if form.errors:
+                return render(request, 'booking/create.html', {'form': form})
+
             appointment = Appointment.objects.create(
                 operation = operation,
                 patient = patient,
-                department = form.cleaned_data.get('department'),
-                worker = form.cleaned_data.get('worker', random.choices(workers)),
+                department = department,
+                worker = worker,
                 date = date_str_format
             )
-            if not workers.filter(pk=appointment.worker_id).exists(): #type:ignore
-                form.add_error('worker', 'This agent is not authorized to perform the operation.')
-                appointment.delete()
-
-            elif not departments.filter(pk=appointment.department_id).exists():  #type:ignore
-                form.add_error('department', 'wrong department')
-                appointment.delete()
-           
-            return redirect('AppointmentDetail', appointment.pk)
+            appointment.save()
+            return redirect(reverse('AppointmentDetail', kwargs={'pk' : appointment.pk}))
     
-    form = AppointmentModelForm(
-        allowed_workers=workers,
-        allowed_departments=departments
-    )
-
-    return render(
-        request,
-        'booking/create.html',
-        { 
-            'form' : form ,
-            'workers' : workers,
-           #'department' : department
-        }
-    )
+    form = AppointmentModelForm(allowed_workers=workers, allowed_departments=departments)
+    return render(request, 'booking/create.html', {'form' : form})
 
 
 @login_required
@@ -147,28 +135,28 @@ def appointment_create(request, oid : int) -> HttpResponse:
 def appointment_update(request, pk):
 
     appointment = get_object_or_404(Appointment, pk=pk)
+    workers = Worker.objects.filter(role__operation=appointment.operation.pk)
+    departments = Department.objects.filter(worker__in=workers)
 
     if request.user != appointment.patient:
         return HttpResponseForbidden()
-    
-    workers = Worker.objects.filter(
-        role__operation=appointment.operation.pk
-        ).prefetch_related(
-            Prefetch(
-                'role',
-                queryset=Role.objects.select_related('operation')
-                )
-        )
-    
-    departments = Department.objects.filter(worker__in=workers).prefetch_related('worker')
 
-    
     if request.method == "POST":
-        form = AppointmentModelForm(request.POST)
+        form = AppointmentModelForm(request.POST,allowed_workers=workers, allowed_departments=departments)
         if form.is_valid():
-            form_data = form.cleaned_data
-            appointment.worker = form_data.get('worker')
-            appointment.department = form_data.get('department') #type:ignore
+            worker = form.cleaned_data.get('worker') or random.choice(workers)
+            department = form.cleaned_data['department']
+
+            if worker not in workers:
+                form.add_error('worker', 'This agent is not authorized to perform the operation.')
+            elif department not in departments:
+                form.add_error('department', 'wrong department')
+            
+            if form.errors:
+                return render(request, 'booking/create.html', {'form': form})
+
+            appointment.worker = worker
+            appointment.department = department
             appointment.save()
             return redirect('AppointmentDetail', pk)
         

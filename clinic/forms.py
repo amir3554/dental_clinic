@@ -14,7 +14,7 @@ class AppointmentModelForm(forms.ModelForm):
 
         labels = {
             'department' : 'Department',
-            'worker' : 'Worker'
+            'worker' : 'The Operator'
         }
 
         widgets = {
@@ -22,6 +22,7 @@ class AppointmentModelForm(forms.ModelForm):
             'department' : forms.Select(attrs=attrs),
             'worker' : forms.Select(attrs=attrs)
         }
+
 
     def __init__(self, *args, allowed_workers=None, allowed_departments=None, **kwargs):
         super().__init__(*args, **kwargs)

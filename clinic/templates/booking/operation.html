@@ -44,6 +44,35 @@ Operation Details
     src=""
     alt=""/>
 
+<div class="row justfy-container-md-center">
+    <div class="card col-md-9 px-0">
+        <div class="card-header" style="color: #000;background-color:rgb(140, 124, 212);">
+            <h3 class="mb-0 py-2">{% trans "Workers That are authorized to do this operation" %}</h3>
+        </div>
+        <div class="card-body" style="color: #000;background-color: #C5CAE9;">
+        {% for worker in workers %}
+        
+        {{ worker }}
+        <br>
+        works at:
+        {% for department in worker.department.all %}
+
+        {{ department }} &&& 
+
+        {% empty %}
+            ...
+        {% endfor %}
+        <br>
+        ------------------
+        <br>
+
+        {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
 <p class="text text-small text-muted">
     We are working on new css and sass styles ,
     we will update this page as soon as posible.

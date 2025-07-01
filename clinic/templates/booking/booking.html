@@ -63,6 +63,12 @@
                         class="btn btn-sm btn-outline-info">
                         <i class="bi bi-eye"></i>
                     </button>
+                    
+                    <a href="{% url 'OperationDetail' operation.id %}"
+                        id="btn-{{ operation.id }}" 
+                        class="btn btn-sm btn-outline-info">
+                        <i class="bi bi-activity"></i>
+                    </a>
                     {% comment %}
                     <a href="{% url 'Updateoperation' operation.id %}" class="btn btn-sm btn-outline-dark mx-1">
                         {% trans 'Edit' %}
